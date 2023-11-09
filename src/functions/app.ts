@@ -1,15 +1,13 @@
 import { Probot } from "probot";
 
 export = (app: Probot) => {
-  app.on("issues.opened", async (context) => {
-    const issueComment = context.issue({
-      body: "Thanks for opening this issue!",
+  app.onAny(async (context) => {
+    context.log(context.payload.installation.id);
+    const oktokit = await auth(context.payload.installation.id);
+    await oktokit.rest.repos.createDispatchEvent({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      event_type: context.name  
     });
-    await context.octokit.issues.createComment(issueComment);
   });
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
 }
