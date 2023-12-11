@@ -112,6 +112,8 @@ That should take you to the Function App's page, where you can find the URL in t
 
 #### Finding the Functions App's URL with the Azure CLI
 
+> **TODO**: test this
+
 ```bash
 AZURE_SUBSCRIPTION_ID=<subscription id>
 AZURE_RESOURCE_GROUP=<resource group name>
@@ -146,9 +148,17 @@ Fill in the details, and click on the "Create GitHub App" button.
 
 You will need a name, a description, a homepage URL (which can just be `https://github.com/`, if you like), and a webhook URL.
 
-The webhook URL is the URL of the Function App you created earlier.
+The webhook URL is the URL of the Function App you created earlier. You should use a secure secret for the webhook secret, since this authenticates that this GitHub App is making requests to your Functions App.
+
+Leave the option selected to "Enabled SSL verification".
 
 You will also need to select the events you want to receive, by giving the app the relevant permissions, and then selecting which events should be sent to the webhook.
+
+### Adding a private key
+
+To add to the secret-based authentication, you need to add a private key to the GitHub App, which is also checked by the Functions App.
+
+In the configuration for the GitHub App, click on the "Generate a private key" button. This will automatically download the private key as a `.pem` file. Save the private key somewhere safe.
 
 ## Installing the GitHub App
 
@@ -156,12 +166,20 @@ You need to install the GitHub app on an organization or repository.
 
 You can use the GitHub UI to do this.
 
-> **TODO**
+Navigate to the GitHub App you created earlier, and click on the "Install App" button.
+
+Choose whether to install it for selected repositories, or for the whole organization.
 
 ### Configuring the Functions App
 
+Set the following environment variables in the Functions App:
+
 ```bash
-APP_ID=.....
-PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n....."
-WEBHOOK_SECRET=.....
+APP_ID=...
+PRIVATE_KEY=...
+WEBHOOK_SECRET=...
 ```
+
+where `APP_ID` is the ID of the GitHub App you created earlier, `PRIVATE_KEY` is the contents of the `.pem` file you downloaded earlier, and `WEBHOOK_SECRET` is the webhook secret you defined when you configured the GitHub App.
+
+These can be configured in the Azure Portal under the "Configuration" section of the Function App, as "Application settings".
