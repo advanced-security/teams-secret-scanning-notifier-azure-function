@@ -32,20 +32,38 @@ const filter = (context: any): boolean => {
   const event_name = context.name;
 
   // check if the event type is allowed by the filter config
-  if (filter_config.include !== undefined && !(event_name in filter_config.include) || filter_config.exclude !== undefined && event_name in filter_config.exclude) return false;
+  // if there is an include list, and this type isn't on it, return false
+  // if there is a matching entry in the excludes, and there are no more details under that entry, return false
+  if (filter_config.include !== undefined && !(event_name in filter_config.include)
+    || filter_config.exclude !== undefined && event_name in filter_config.exclude && Object.keys(filter_config.exclude).length === 0
+  ) return false;
 
-  // check the event payload against the filter config
-  const filter = filter_config.include[event_name];
+  // check the event payload against the filter config's include rule, if it exists
+  const include_filter = filter_config.include[event_name];
+  const payload = context.payload;
 
-  if (filter !== undefined) {
-    const payload = context.payload;
-    const matches = Object.keys(filter).every(key => {
-      if (typeof filter[key] === typeof (String)) return payload[key] === filter[key];
-      if (typeof filter[key] === typeof (Array)) return payload[key] in filter[key];
+  if (include_filter !== undefined) {
+
+    const matches = Object.keys(include_filter).every(key => {
+      if (typeof include_filter[key] === typeof (String)) return payload[key] === include_filter[key];
+      if (typeof include_filter[key] === typeof (Array)) return payload[key] in include_filter[key];
       return false;
     });
 
     if (!matches) return false;
+  }
+
+  // same for the exclude rule
+  const exclude_filter = filter_config.exclude[event_name];
+
+  if (exclude_filter !== undefined) {
+    const matches = Object.keys(exclude_filter).every(key => {
+      if (typeof exclude_filter[key] === typeof (String)) return payload[key] === exclude_filter[key];
+      if (typeof exclude_filter[key] === typeof (Array)) return payload[key] in exclude_filter[key];
+      return false;
+    });
+
+    if (matches) return false;
   }
 
   return true;
