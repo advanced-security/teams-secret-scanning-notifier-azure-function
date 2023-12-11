@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "@probot/adapter-azure-functions": "github:ctcampbell/adapter-azure-functions#main"
+    "@probot/adapter-azure-functions": "github:ctcampbell/adapter-azure-functions#main",
+    "yaml": "^2.3.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",

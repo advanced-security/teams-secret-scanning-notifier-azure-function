@@ -2,7 +2,7 @@
 
 This Azure Function mirrors GitHub webhook events to a GitHub Action.
 
-It needs you to deploy the function on Azure, and to create a GitHub app and install it on a repo.
+It needs you to deploy the function on Azure, and to create a GitHub app and install it on an org or repo.
 
 ## Deploying the function
 
@@ -132,9 +132,23 @@ Right-click the Function App, and click "Browse Website" from the context menu. 
 
 You need to create a GitHub app, and install it on a repo.
 
-You can use the GitHub UI to do this.
+Use the GitHub UI to create a new app.
 
-> **TODO**
+1. Got to the Organization you want to create the app in.
+2. Click on the "Settings" button in the top menu bar
+3. Click on the "Developer settings" button in the left-hand side panel
+4. Click on the "GitHub Apps" link
+5. Click on the "New GitHub App" button at the top right of the page
+
+That should take you to the `https://github.com/organizations/<org>/settings/apps/new` page for your organization, which will replace `<org>`.
+
+Fill in the details, and click on the "Create GitHub App" button.
+
+You will need a name, a description, a homepage URL (which can just be `https://github.com/`, if you like), and a webhook URL.
+
+The webhook URL is the URL of the Function App you created earlier.
+
+You will also need to select the events you want to receive, by giving the app the relevant permissions, and then selecting which events should be sent to the webhook.
 
 ## Installing the GitHub App
 

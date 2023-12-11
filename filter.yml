@@ -1,0 +1,5 @@
+# filter webhook events by type and payload, declaratively
+
+include:
+  secret_scanning_alert:
+    action: [created, dismissed, resolved, reopened]
