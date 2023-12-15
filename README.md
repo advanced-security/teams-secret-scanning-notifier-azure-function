@@ -98,17 +98,19 @@ There are a couple of ways to deploy the function to the Function App with the V
    - or
 2. Find the Function App in the Resources pane (under the correct Subscription). Right-click it, and select "Deploy to Function App..." from the context menu.
 
-### Finding the Functions App's URL
+### Finding the Function's URL
 
-You need to find the URL of the Function App.
+You need to find the URL of the Function.
 
 You can use the Azure Portal, the Azure CLI, or the VSCode Azure Functions extension to do this.
+
+If you can't find the Function under the Functions App, you may need to click on the "Refresh" button in the top menu. If that doesn't work, there may be an error in the Function's code or settings. Check that you can debug the Function locally, to see if there are any mistakes in the configuration, especially the `PRIVATE_KEY` setting.
 
 #### Finding the Functions App's URL with the Azure Portal
 
 In the [Azure Portal](https://portal.azure.com), click on the "Function Apps" button in the left-hand menu, and select the Function App you created.
 
-That should take you to the Function App's page, where you can find the URL in the Essential section.
+That should take you to the Function App's page. You should see your Function listed in the table. Left-click on the Function's name, and on the Function's page, left-click on the "Get function URL" button in the top menu. Copy the URL.
 
 #### Finding the Functions App's URL with the Azure CLI
 
@@ -124,11 +126,13 @@ az account set --subscription "${AZURE_SUBSCRIPTION_ID}"
 az functionapp show --resource-group "${AZURE_RESOURCE_GROUP}" --name "${AZURE_FUNCTION_APP_NAME}" --query "defaultHostName" --output tsv
 ```
 
+Add `/api/webhook-mirror` to the end of the URL, to get the full URL to your Function.
+
 #### Finding the Functions App's URL with the VSCode Azure Functions extension
 
 You can find the URL of the Function App in the Resources pane (under the correct Subscription).
 
-Right-click the Function App, and click "Browse Website" from the context menu. That will open the URL in your default browser.
+Open up the Function App, and expand the Functions node. Right-click on the Function, and select "Copy Function Url" from the context menu.
 
 ## Creating a GitHub app
 
@@ -150,9 +154,11 @@ You will need a name, a description, a homepage URL (which can just be `https://
 
 The webhook URL is the URL of the Function App you created earlier. You should use a secure secret for the webhook secret, since this authenticates that this GitHub App is making requests to your Functions App.
 
+Give the app read and write access to Actions under the repository permissions.
+
 Leave the option selected to "Enabled SSL verification".
 
-You will also need to select the events you want to receive, by giving the app the relevant permissions, and then selecting which events should be sent to the webhook.
+You will also need to select the events you want to receive, by giving the app the relevant additional permissions, and then selecting which events should be sent to the webhook.
 
 ### Adding a private key
 
