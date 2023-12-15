@@ -11,3 +11,4 @@ tsconfig.json
 *.sh
 *.zip
 README.md
+node_modules/.bin
