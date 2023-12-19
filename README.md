@@ -1,6 +1,6 @@
-# GitHub Azure Function to mirror webhook events
+# GitHub Azure Function to mirror GitHub repository events
 
-This Azure Function mirrors GitHub webhook events to a GitHub repo, using a `repository_dispatch` event.
+This Azure Function mirrors GitHub events back to a GitHub repo as a `repository_dispatch` event.
 
 This is necessary since not all [GitHub events](https://docs.github.com/en/enterprise-cloud@latest/webhooks/webhook-events-and-payloads) can [trigger an Actions workflow](https://docs.github.com/en/enterprise-cloud@latest/actions/using-workflows/events-that-trigger-workflows). For example, the `pull_request_review` event cannot trigger a workflow.
 
