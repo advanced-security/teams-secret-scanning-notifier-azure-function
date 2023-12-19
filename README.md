@@ -1,10 +1,14 @@
 # GitHub Azure Function to mirror GitHub repository events
 
+> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
+
 This Azure Function mirrors GitHub events back to a GitHub repo as a `repository_dispatch` event.
 
 This is necessary since not all [GitHub events](https://docs.github.com/en/enterprise-cloud@latest/webhooks/webhook-events-and-payloads) can [trigger an Actions workflow](https://docs.github.com/en/enterprise-cloud@latest/actions/using-workflows/events-that-trigger-workflows). For example, the `pull_request_review` event cannot trigger a workflow.
 
 It needs you to deploy the function on Azure, and to create a GitHub App and install it on an org or repo.
+
+> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
 
 ## How it works
 
