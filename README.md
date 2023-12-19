@@ -50,3 +50,21 @@ on:
 where `types` is a list of the types of GitHub events you want to trigger the workflow.
 
 The content of the event will be available in the `github.event` context variable, and the payload will be available at `github.event.client_payload`.
+
+## License
+
+This project is licensed under the terms of the MIT open source license. Please refer to the [LICENSE](LICENSE) for the full terms.
+
+## Maintainers
+
+See [CODEOWNERS](CODEOWNERS) for the list of maintainers.
+
+## Support
+
+> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
+
+See the [SUPPORT](SUPPORT.md) file.
+
+## Background
+
+See the [CHANGELOG](CHANGELOG.md), [CONTRIBUTING](CONTRIBUTING.md), [SECURITY](SECURITY.md), [SUPPORT](SUPPORT.md), [CODE OF CONDUCT](CODE_OF_CONDUCT.md) and [PRIVACY](PRIVACY.md) files for more information.
