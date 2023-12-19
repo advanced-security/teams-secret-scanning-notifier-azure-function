@@ -12,14 +12,14 @@ The Azure Function is triggered by a GitHub webhook event, via the GitHub App. T
 
 ```mermaid
 sequenceDiagram
-    participant GH as GitHub
     participant GA as GitHub App
     participant AF as Azure Function
     participant GR as GitHub Repo
-    GH->>GA: Webhook event
-    GA->>AF: Triggers Azure Function
+    participant AW as Actions Workflow
+    GR->>GA: GitHub event
+    GA->>AF: Triggers Azure Function via webhook
     AF->>GR: Sends `repository_dispatch` event
-    GR->>GH: Triggers GitHub Actions workflow
+    GR->>AW: Triggers GitHub Actions workflow
 ```
 
 ## Requirements
