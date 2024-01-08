@@ -163,6 +163,7 @@ You will need a name, a description, a homepage URL (which can just be `https://
 - give the GitHub App read and write access to Actions under the repository permissions
 - leave the option selected to "Enable SSL verification"
 - select the events you want to receive, by giving the app the relevant additional permissions, and then selecting which events should be sent to the webhook
+  - ⚠️ carefully think about the security implications of giving _anyone with write access_ to your repository access to these events before you choose the events
 - click on the "Generate a private key" button. This will automatically download the private key as a `.pem` file. Save the private key somewhere safe - this is the only time you get to download it, and you will need it later
 
 [The full GitHub docs](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) can help you if you get stuck.
