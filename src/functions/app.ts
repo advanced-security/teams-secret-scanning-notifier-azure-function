@@ -17,12 +17,12 @@ const setupApp = (app: Probot) => {
     const octokit = await app.auth(context.payload.installation.id);
 
     // if (filter(context)) {
-      await octokit.repos.createDispatchEvent({
-        owner: context.payload.repository.owner.login,
-        repo: context.payload.repository.name,
-        event_type: context.name,
-        client_payload: context.payload
-      });
+    await octokit.repos.createDispatchEvent({
+      owner: context.payload.repository.owner.login,
+      repo: context.payload.repository.name,
+      event_type: context.name,
+      client_payload: context.payload,
+    });
     // }
   });
 };
