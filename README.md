@@ -6,7 +6,7 @@ This Azure Function mirrors GitHub events back to a GitHub repo as a `repository
 
 This is necessary since not all [GitHub events](https://docs.github.com/en/enterprise-cloud@latest/webhooks/webhook-events-and-payloads) can [trigger an Actions workflow](https://docs.github.com/en/enterprise-cloud@latest/actions/using-workflows/events-that-trigger-workflows). For example, the `pull_request_review` event cannot trigger a workflow.
 
-> ⚠️ Some repository events can contain sensitive information. See more in [#security-considerations](Security Considerations).
+> ⚠️ Some repository events can contain sensitive information. See more in "Security Considerations" below.
 
 It needs you to deploy the function on Azure, and to create a GitHub App and install it on an org or repo.
 
