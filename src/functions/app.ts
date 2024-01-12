@@ -1,4 +1,20 @@
 import { Probot } from "probot";
+import { EmitterWebhookEvent } from "@octokit/webhooks";
+
+interface InstallationLite {
+  id: number;
+  node_id: string;
+}
+interface GitHubAppWebHookPayload {   
+  installation: InstallationLite;
+  repository: {
+    name: string;
+    owner: {
+      login: string;
+    }
+  }
+}
+
 // import * as fs from 'fs';
 // import * as yaml from 'yaml';
 
@@ -13,24 +29,26 @@ import { Probot } from "probot";
 // }
 
 const setupApp = (app: Probot) => {
-  app.onAny(async (context: any) => {
-    const octokit = await app.auth(context.payload.installation.id);
+  app.onAny(async (event: EmitterWebhookEvent) => {
+    const payload = event.payload as GitHubAppWebHookPayload;
+
+    const octokit = await app.auth(payload.installation.id);
 
     // if (filter(context)) {
     await octokit.repos.createDispatchEvent({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      event_type: context.name,
-      client_payload: context.payload,
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      event_type: event.name,
+      client_payload: payload as unknown as {[key:string]: unknown},
     });
     // }
   });
 };
 
-// const filter = (context: any): boolean => {
+// const filter = (event: EmitterWebhookEvent): boolean => {
 //   if (filter_config === undefined) return true;
 
-//   const event_name = context.name;
+//   const event_name = event.name;
 
 //   // check if the event type is allowed by the filter config
 //   // if there is an include list, and this type isn't on it, return false
@@ -41,7 +59,7 @@ const setupApp = (app: Probot) => {
 
 //   // check the event payload against the filter config's include rule, if it exists
 //   const include_filter = filter_config.include[event_name];
-//   const payload = context.payload;
+//   const payload = event.payload;
 
 //   if (include_filter !== undefined) {
 
