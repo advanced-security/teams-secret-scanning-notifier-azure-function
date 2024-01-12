@@ -1,19 +1,6 @@
 import { Probot } from "probot";
 import { EmitterWebhookEvent } from "@octokit/webhooks";
-
-interface InstallationLite {
-  id: number;
-  node_id: string;
-}
-interface GitHubAppWebHookPayload {   
-  installation: InstallationLite;
-  repository: {
-    name: string;
-    owner: {
-      login: string;
-    }
-  }
-}
+import { GitHubAppWebHookPayload } from "./types";
 
 // import * as fs from 'fs';
 // import * as yaml from 'yaml';
