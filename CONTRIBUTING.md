@@ -10,11 +10,16 @@ Please raise non-security bugs and suggestions in the Issues on the GitHub-hoste
 
 ## Developing
 
-Please test your changes before submitting a PR.
+Please:
+
+* sign commits
+* format code with Prettier
+* lint code with ESLint, using the GitHub ESLint plugin
+* add tests, and test the code with `npm test`
 
 ## Submitting changes
 
-Please fork the repository, and raise a Pull Request (PR) for review. Please sign commits.
+Please fork the repository, and raise a Pull Request (PR) for review.
 
 Remember to update the [README](README.md) and [CHANGELOG](CHANGELOG.md).
 
