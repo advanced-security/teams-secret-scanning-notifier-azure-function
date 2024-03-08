@@ -12,7 +12,7 @@ To get this Azure Function working, you need to:
 > [!NOTE]
 > When working with the Azure CLI, remember to use `az login` to log in to Azure, and `az logout` first if you are having problems.
 >
-> To use the convenience scripts, set your Azure settings in a local `azure.env` file that they pick up.
+> To use the convenience scripts, set your Azure settings in a local `azure.env` file that they pick up. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
 
 ## Creating a GitHub app
 
@@ -98,22 +98,11 @@ Fill in the details, and click on the "Review + create" button. Make sure you se
 
 #### Creating the Functions App with the Azure CLI
 
-It needs your subscription ID, a resource group name, a storage account name, a location, and a function app name.
+It needs your subscription ID, a location, and a function app name to be set in `azure.env` in the repo directory.
 
-> **TODO**: test this
+Only the subscription ID is necessary - the rest have defaults: you may want to change the region or the name of the function.
 
-```bash
-AZURE_SUBSCRIPTION_ID=<subscription id>
-AZURE_RESOURCE_GROUP=<resource group name>
-AZURE_LOCATION=<location>
-AZURE_STORAGE_ACCOUNT=<storage account name>
-AZURE_FUNCTION_APP_NAME=<function app name>
-
-az account set --subscription "${AZURE_SUBSCRIPTION_ID}"
-az group create --name "${AZURE_RESOURCE_GROUP}" --location "${AZURE_LOCATION}"
-az storage account create --name "${AZURE_STORAGE_ACCOUNT}" --location "${AZURE_LOCATION}" --resource-group "${AZURE_RESOURCE_GROUP}" --sku Standard_LRS
-az functionapp create --resource-group "${AZURE_RESOURCE_GROUP}" --consumption-plan-location "${AZURE_LOCATION}" --runtime node~18 --functions-version 3 --name "${AZURE_FUNCTION_APP_NAME}" --storage-account "${AZURE_STORAGE_ACCOUNT}"
-```
+You can use the convenience script `create-azure-function.sh`.
 
 #### Creating the Functions App with the VSCode Azure Functions extension
 
@@ -150,7 +139,7 @@ You can sync your remote settings from the app you created to the local repo.
 
 You can use the Azure Functions extension in VSCode. Right-click on the Function App in the Resources pane, and select "Download remote settings" from the context menu.
 
-Alternatively, you can also use the `sync-settings-remote-to-local.sh` script, after you set `azure.env` appropriately.
+Alternatively, you can also use the `sync-settings-remote-to-local.sh` script, after you set `azure.env` appropriately. This will save the settings to `remote.settings.json`, which you can copy to `local.settings.json`.
 
 Then in your `local.settings.json` file these environment variables are defined like:
 
