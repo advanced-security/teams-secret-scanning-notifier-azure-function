@@ -84,7 +84,7 @@ Before you deploy, set a `filter.yml` if you wish to filter out certain events. 
 
 You can use the Azure Portal, the Azure CLI, or the VSCode Azure Functions extension to do this.
 
-The Function uses the NodeJS runtime, and will work with NodeJS 18+.
+The Function uses the NodeJS runtime, and will work with NodeJS 20+.
 
 #### Creating the Functions App with the Azure Portal
 
@@ -94,7 +94,7 @@ In the [Azure Portal](https://portal.azure.com), click on the "Create a resource
 
 That should take you to the [Create Function App](https://portal.azure.com/#create/Microsoft.FunctionApp) page.
 
-Fill in the details, and click on the "Review + create" button. Make sure you select the NodeJS runtime, of the latest stable version (18+).
+Fill in the details, and click on the "Review + create" button. Make sure you select the NodeJS runtime, of the latest stable version (20+).
 
 #### Creating the Functions App with the Azure CLI
 
