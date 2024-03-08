@@ -236,7 +236,7 @@ Fill in the details you now know from the Function App and installed Function in
 
 - select the `secret_scanning_alert` event under "Permissions & events"
   - ⚠️ carefully think about the security implications of giving the Functions App access to these events
-- set the webhook URL to the URL of the Function App
+- set the webhook URL to the URL of the Function
 - set the webhook to Active by checking the box
 
 ### Install the GitHub App on the organization or repositories
