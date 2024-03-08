@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 . ./azure.env
 
 az account set --subscription "${AZURE_SUBSCRIPTION_ID}"
