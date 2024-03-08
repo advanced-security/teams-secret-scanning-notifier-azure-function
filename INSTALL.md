@@ -58,23 +58,6 @@ Once it is created, you will need to download the private key.
 
 This is possible [using a manifest](https://docs.github.com/en/enterprise-cloud@latest/apps/sharing-github-apps/registering-a-github-app-from-a-manifest), but has not yet been implemented here.
 
-## Installing the GitHub App
-
-You need to install the GitHub App on an organization or repository.
-
-### Use the GitHub UI to install the GitHub App
-
-- navigate to the GitHub App you created earlier, and click on the "Install App" button
-- choose whether to install it for selected repositories, or for the whole organization
-
-### Use the GitHub API to install the GitHub App
-
-> **TODO**
-
-This has not been implemented yet.
-
-This is left until the creation of the app using a manifest has been implemented.
-
 ## Deploying the Azure Function
 
 You need to create an Azure Function App, and deploy the Azure Function to it.
@@ -231,7 +214,7 @@ You can find the URL of the Function App in the Resources pane (under the correc
 
 Open up the Function App, and expand the Functions node. Right-click on the Function, and select "Copy Function Url" from the context menu.
 
-### Configuring the GitHub App
+## Configuring the GitHub App
 
 Fill in the details you now know from the Function App and installed Function into the GitHub App's settings.
 
@@ -240,8 +223,20 @@ Fill in the details you now know from the Function App and installed Function in
 - set the webhook URL to the URL of the Function
 - set the webhook to Active by checking the box
 
-### Install the GitHub App on the organization or repositories
+## Installing the GitHub App
 
-You can now install the GitHub App on the organization or repositories you want to receive secret scanning notifications for.
+You need to install the GitHub App on an organization or repository.
 
-In the App settings, choose "Install App" and follow the prompts for the organization you want to install the App on.
+### Use the GitHub UI to install the GitHub App
+
+- navigate to the GitHub App you created earlier, and click on the "Install App" button
+- choose which organization to install it on
+- choose whether to install it for selected repositories, or for the whole organization
+
+### Use the GitHub API to install the GitHub App
+
+> **TODO**
+
+This has not been implemented yet.
+
+This is left until the creation of the app using a manifest has been implemented.
