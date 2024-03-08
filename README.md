@@ -20,6 +20,7 @@ The Function notifies a Teams channel via a Teams incoming webhook.
 
 ```mermaid
 sequenceDiagram
+    participant GR is GitHub repo
     participant GA as GitHub App
     participant AF as Azure Function
     participant TC as Teams channel
