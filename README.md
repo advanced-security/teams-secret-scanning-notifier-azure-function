@@ -1,43 +1,47 @@
-# GitHub Azure Function to mirror GitHub repository events
+# Teams Secret Scanning notifier (GitHub Azure Function/GitHub App)
 
-> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
+> [!WARNING]
+> This is an _unofficial_ tool created by Field Security Specialists, and is not officially supported by GitHub.
 
-This Azure Function mirrors GitHub events back to a GitHub repo as a `repository_dispatch` event.
+This project sends notifications to a Teams channel when a secret scanning event happens.
 
-This is necessary since not all [GitHub events](https://docs.github.com/en/enterprise-cloud@latest/webhooks/webhook-events-and-payloads) can [trigger an Actions workflow](https://docs.github.com/en/enterprise-cloud@latest/actions/using-workflows/events-that-trigger-workflows). For example, the `pull_request_review` event cannot trigger a workflow.
-
-> ⚠️ Some repository events can contain sensitive information. See more in "Security Considerations" below.
+It is implemented as an Azure Function, and installed as a GitHub App.
 
 It needs you to deploy the function on Azure, and to create a GitHub App and install it on an org or repo.
 
-> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
+> [!WARNING]
+> This is an _unofficial_ tool created by Field Security Specialists, and is not officially supported by GitHub.
 
 ## How it works
 
-The Azure Function is triggered by a GitHub webhook event, via the GitHub App. The Function sends a `repository_dispatch` event to the GitHub repo, with the same payload as the original event.
+The Azure Function is triggered by a GitHub webhook event, via the GitHub App.
+
+The Function notifies a Teams channel via a Teams incoming webhook.
 
 ```mermaid
 sequenceDiagram
     participant GA as GitHub App
     participant AF as Azure Function
-    participant GR as GitHub Repo
-    participant AW as Actions Workflow
+    participant TC as Teams channel
     GR->>GA: GitHub event
-    GA->>AF: Triggers Azure Function via webhook
-    AF->>GR: Sends `repository_dispatch` event
-    GR->>AW: Triggers GitHub Actions workflow
+    GA->>AF: Triggers Azure Function
+    AF->>TC: Sends message to Teams channel
 ```
 
 ## Requirements
 
 - an Azure account on an Azure subscription
 - a GitHub account
+- a Teams subscription
+- an incoming webhook on a Teams channel
 
-## Filter events
+## Settings
 
-Before you deploy, you can choose to set a declarative filter to apply to GitHub events you receive in the Azure Functions App. This is in addition to selecting the events you choose to listen for in the GitHub App.
+You will need to set the Teams webhook URL in the Azure Function's application settings. This is covered in the `INSTALL.md` file.
 
-This is done in the `fiter.yml` file, with the format shown in `filter.yml.example` and below:
+Before you deploy, you can choose to set a declarative filter to apply to GitHub events you receive in the Azure Functions App. This is in addition to selecting the secret scanning events in the GitHub App.
+
+This is done in the `filter.yml` file, with the format shown in `filter.yml.example` and below:
 
 ```yaml
 # Path: filter.yml
@@ -65,26 +69,9 @@ If you do not want to use a filter, you can delete the `filter.yml` file, or lea
 
 You do not need to provide both an `include` and `exclude` key.
 
-
 ## Installing
 
 See [INSTALL.md](INSTALL.md) for details.
-
-## Create a GitHub Actions workflow
-
-Once the mirror is set up and working, you need to create a GitHub Actions workflow that will run in response to a `repository_dispatch` event.
-
-It should trigger like so:
-
-```yaml
-on:
-  repository_dispatch:
-    types: [...]
-```
-
-where `types` is a list of the types of GitHub events you want to trigger the workflow.
-
-The content of the event will be available in the `github.event` context variable, and the payload will be available at `github.event.client_payload`.
 
 ## License
 
@@ -96,17 +83,18 @@ See [CODEOWNERS](CODEOWNERS) for the list of maintainers.
 
 ## Support
 
-> ℹ️ This is an _unofficial_ tool created by Field Security Services, and is not officially supported by GitHub.
+> [!WARNING]
+> This is an _unofficial_ tool created by Field Security Specialists, and is not officially supported by GitHub.
 
 See the [SUPPORT](SUPPORT.md) file.
 
 ## Security Considerations
 
-Some GitHub repository events contain sensitive data that is usually only available to users with privileged access on a repository.
+Secret scanning events contain sensitive data that is usually only available to users with privileged access on a repository.
 
-If you use this event mirror, then _anyone with repository write access_ can create a workflow that will be triggered by the events you mirror, which means they will also get full access to the content of that event.
+If you use this notifier, then anyone with access to the Azure Function's subscription may be able to get access to this data.
 
-To repeat: some events can contain sensitive information. Consider carefully whether to allow access to _anyone with write access_ the ability to read an event before you mirror it back to the repository.
+Anyone with access to the Teams channel may be able to get access to this data.
 
 ## Background
 
