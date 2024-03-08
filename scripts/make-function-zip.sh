@@ -10,7 +10,7 @@ zip -q -r teams-secret-scanning-notifier.zip . \
 -x 'teams-secret-scanning-notifier.zip' '.vscode/*' '*settings*.json' \
     '.git/*' '.github/*' '.gitignore' '.eslint*' '.funcignore' '*.md' \
     'CODEOWNERS' 'LICENSE' '*.ts' '*.map' 'jest.config.js' \
-    '*.example' 'node_modules/.bin/*' '*.sh' '*.env' \
+    '*.example' 'node_modules/.bin/*' 'scripts/*' '*.env' \
     'tsconfig.json' 'src/*' 'test/*' \
     'node_modules/@types/*' 'node_modules/*jest*/*' \
     'node_modules/*eslint*/*' '*/.github/*' '*/.history/*' \
