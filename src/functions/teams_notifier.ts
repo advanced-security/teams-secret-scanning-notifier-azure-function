@@ -50,14 +50,14 @@ function validateTeamsWebhook(webhook: string): string | null {
 
 export const notifyTeams = async (eventData: SecretScanningAlertWebHookPayload) => {
     // get Teams webhook out of app settings in Azure Function
-    const teamsWebhook = process.env.TEAMS_WEBHOOK;
+    const teamsWebhook = process.env.TEAMS_WEBHOOK_URL;
 
     if (!teamsWebhook) {
-        throw new Error("TEAMS_WEBHOOK is not set");
+        throw new Error("TEAMS_WEBHOOK_URL is not set");
     }
 
     if (!validateTeamsWebhook(teamsWebhook)) {
-        throw new Error("TEAMS_WEBHOOK is not valid");
+        throw new Error("TEAMS_WEBHOOK_URL is not valid");
     }
 
     // notify Teams using the webhook
