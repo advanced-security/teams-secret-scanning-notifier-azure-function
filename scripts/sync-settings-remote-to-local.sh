@@ -1,6 +1,10 @@
 #!/bin/bash
 
-. ./azure.env
+set -euo pipefail
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+. "${SCRIPT_DIR}"/azure.env
 
 az account set --subscription "${AZURE_SUBSCRIPTION_ID}"
 

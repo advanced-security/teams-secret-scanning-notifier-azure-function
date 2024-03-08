@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
-. ./azure.env
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+. "${SCRIPT_DIR}"/azure.env
 
 # set Azure location to us-east unless it is set to something different already
 AZURE_STORAGE_ACCOUNT="${AZURE_STORAGE_ACCOUNT:-teamssecretnotifier001sa}"

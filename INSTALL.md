@@ -11,8 +11,9 @@ To get this Azure Function working, you need to:
 
 > [!NOTE]
 > When working with the Azure CLI, remember to use `az login` to log in to Azure, and `az logout` first if you are having problems.
->
-> To use the convenience scripts, set your Azure settings in a local `azure.env` file that they pick up. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
+
+> [!NOTE]
+> To use the Bash (use WSL on Windows for Bash) scripts in the `scripts` directory, set your Azure settings in a `azure.env` file that they pick up from the same directory. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
 
 ## Creating a GitHub app
 
@@ -78,7 +79,7 @@ This is left until the creation of the app using a manifest has been implemented
 
 You need to create an Azure Function App, and deploy the Azure Function to it.
 
-Before you deploy, set a `filter.yml` if you wish to filter out certain events. See [filtering events](README.md#filtering-events) for more details.
+Before you deploy, set a `filter.yml` if you wish to filter out certain events. See [filtering events](README.md) for more details.
 
 ### Creating the Functions App
 
@@ -98,11 +99,11 @@ Fill in the details, and click on the "Review + create" button. Make sure you se
 
 #### Creating the Functions App with the Azure CLI
 
-It needs your subscription ID, a location, and a function app name to be set in `azure.env` in the repo directory.
+It needs your subscription ID, a location, and a function app name to be set in `scripts/azure.env` in the repo directory.
 
 Only the subscription ID is necessary - the rest have defaults: you may want to change the region or the name of the function.
 
-You can use the convenience script `create-azure-function.sh`.
+You can use the convenience script `scripts/create-azure-function.sh`.
 
 #### Creating the Functions App with the VSCode Azure Functions extension
 

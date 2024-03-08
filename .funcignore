@@ -14,7 +14,7 @@ LICENSE
 jest.config.js
 *.example
 node_modules/.bin/
-*.sh
+scripts/
 *.env
 tsconfig.json
 src/

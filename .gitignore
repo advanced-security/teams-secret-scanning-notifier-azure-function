@@ -105,8 +105,5 @@ __azurite_db*__.json
 # if you fork this repo, you can uncomment this and commit your own filter.yml
 filter.yml
 
-# local example files
-*.example
-
 # Azure environment file
 azure.env
