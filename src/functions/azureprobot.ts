@@ -6,7 +6,7 @@ import {
 
 import probotapp from "./app";
 
-app.http("webhook-mirror", {
+app.http("teams-secret-scanning-notifier", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: createAzureFunctionV4(probotapp, {
