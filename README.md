@@ -3,7 +3,7 @@
 > [!WARNING]
 > This is an _unofficial_ tool created by Field Security Specialists, and is not officially supported by GitHub.
 
-This project sends notifications to a *Microsoft Teams* channel when a secret scanning event happens in [GitHub Advanced Security](https://docs.github.com/en/enterprise-cloud@latest/get-started/learning-about-github/about-github-advanced-security).
+This project sends notifications to a **Microsoft Teams** channel when a secret scanning event happens in [GitHub Advanced Security](https://docs.github.com/en/enterprise-cloud@latest/get-started/learning-about-github/about-github-advanced-security).
 
 It is implemented as an [Azure Function](https://learn.microsoft.com/en-us/azure/azure-functions/), and installed as a [GitHub App](https://docs.github.com/en/apps). It uses a Teams incoming webhook.
 
