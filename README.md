@@ -1,11 +1,11 @@
-# Teams Secret Scanning notifier (GitHub Azure Function/GitHub App)
+# Teams Secret Scanning notifier (Azure Function/GitHub App)
 
 > [!WARNING]
 > This is an _unofficial_ tool created by Field Security Specialists, and is not officially supported by GitHub.
 
-This project sends notifications to a Teams channel when a secret scanning event happens.
+This project sends notifications to a *Microsoft Teams* channel when a secret scanning event happens in [GitHub Advanced Security](https://docs.github.com/en/enterprise-cloud@latest/get-started/learning-about-github/about-github-advanced-security).
 
-It is implemented as an Azure Function, and installed as a GitHub App.
+It is implemented as an [Azure Function](https://learn.microsoft.com/en-us/azure/azure-functions/), and installed as a [GitHub App](https://docs.github.com/en/apps). It uses a Teams incoming webhook.
 
 It needs you to deploy the function on Azure, and to create a GitHub App and install it on an org or repo.
 
