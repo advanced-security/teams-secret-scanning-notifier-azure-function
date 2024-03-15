@@ -1,5 +1,5 @@
 # CHANGELOG
 
-## 1.0.0 - 2023-12-19
+## 1.0.0 - 2024-03-11
 
-* Initial pre-release
+* Initial release
