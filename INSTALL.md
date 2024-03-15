@@ -14,7 +14,7 @@ To get this Azure Function working, you need to:
 > When working with the Azure CLI, remember to use `az login` to log in to Azure, and `az logout` first if you are having problems.
 
 > [!NOTE]
-> To use the Bash (use WSL on Windows for Bash) scripts in the `scripts` directory, set your Azure settings in a `azure.env` file that they pick up from the same directory. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
+> To use the Bash (use WSL on Windows for Bash) scripts in the `scripts` directory, set your Azure settings in a `scripts/azure.env` file that they pick up from the same directory. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
 
 > [!WARNING]
 > Don't get confused between the Teams webhook and the Azure Function webhook.
@@ -126,10 +126,10 @@ where `APP_ID` is the ID of the GitHub App you created earlier, `PRIVATE_KEY` is
 The private key should be a single line, removing the whitespace in the `.pem` file, like:
 
 ```text
------BEGIN RSA PRIVATE KEY----- MIAAA...AAA== -----END RSA PRIVATE KEY-----
+-----BEGIN RSA PRIVATE KEY-----MIAAA...AAA==-----END RSA PRIVATE KEY-----
 ```
 
-You can use the `pem-to-one-liner.sh` script to do this, which just uses `tr` to remove the line breaks.
+You can use the `scripts/pem-to-one-liner.sh` script to do this, which just uses `tr` to remove the line breaks.
 
 It is also possible to set these directly in the Azure Portal, but you may prefer to configure them in code.
 
@@ -139,7 +139,7 @@ You can sync your remote settings from the app you created to the local repo.
 
 You can use the Azure Functions extension in VSCode. Right-click on the Function App in the Resources pane, and select "Download remote settings" from the context menu.
 
-Alternatively, you can also use the `sync-settings-remote-to-local.sh` script, after you set `azure.env` appropriately. This will save the settings to `remote.settings.json`, which you can copy to `local.settings.json`.
+Alternatively, you can also use the `scripts/sync-settings-remote-to-local.sh` script, after you set `scripts/azure.env` appropriately. This will save the settings to `remote.settings.json`, which you can copy to `local.settings.json`.
 
 Then in your `local.settings.json` file these environment variables are defined like:
 
@@ -168,7 +168,7 @@ You can also set them directly in the `local.settings.json` (as above) and sync 
 
 #### Configuring the Functions App with the Azure CLI
 
-You can use the `sync-settings-local-to-remote.sh` shell script provided in this repository. Make sure to set the `local.settings.json` and `azure.env` appropriately first.
+You can use the `scripts/sync-settings-local-to-remote.sh` shell script provided in this repository. Make sure to set the `local.settings.json` and `scripts/azure.env` appropriately first.
 
 ### Deploying the Function to the Function App
 
@@ -178,7 +178,7 @@ You can use the Azure Portal, the Azure CLI, or the VSCode Azure Functions exten
 
 Some of these steps assume you have zipped up the code of this function into `teams-secret-scanning-notifier.zip`.
 
-You can do that using the `make-function-zip.sh` shell script provide in this repository. Make sure to set the `azure.env` appropriately first.
+You can do that using the `scripts/make-function-zip.sh` shell script provide in this repository. Make sure to set the `scripts/azure.env` appropriately first.
 
 #### Deploying with the Azure Portal
 
@@ -192,9 +192,9 @@ Select "Zip Deploy", and upload the `teams-secret-scanning-notifier.zip` file.
 
 #### Deploying with the Azure CLI
 
-Use the `deploy.sh` shell script provided in this repository. Make sure to set the `azure.env` appropriately first.
+Use the `scripts/deploy.sh` shell script provided in this repository. Make sure to set the `scripts/azure.env` appropriately first.
 
-That may fail if it can't find the function app. If it does, you can try using `deploy-zip.sh` instead, using the `teams-secret-scanning-notifier.zip`.
+That may fail if it can't find the function app. If it does, you can try using `scripts/deploy-zip.sh` instead, using the `teams-secret-scanning-notifier.zip`.
 
 #### Deploying with the VSCode Azure Functions extension
 
@@ -208,7 +208,7 @@ There are a couple of ways to deploy the function to the Function App with the V
 
 You need to find the URL of the Function to set up the GitHub App's webhook.
 
-This is returned when you deploy the function to the Function App using the `deploy.sh` script. If you used a different method, you may need to find it manually.
+This is returned when you deploy the function to the Function App using the `scripts/deploy.sh` script. If you used a different method, you may need to find it manually.
 
 You can use the Azure Portal, the Azure CLI, or the VSCode Azure Functions extension to do this.
 
@@ -222,7 +222,7 @@ That should take you to the Function App's page. You should see your Function li
 
 #### Finding the Function's URL with the Azure CLI
 
-Use the `get-function-url.sh` shell script provided in this repository. Make sure to set the `azure.env` appropriately first.
+Use the `scripts/get-function-url.sh` shell script provided in this repository. Make sure to set the `scripts/azure.env` appropriately first.
 
 This gets the URL of your Functions App and adds `/api/teams-secret-scanning-notifier` to the end of the URL, to get the full URL to your Function.
 
