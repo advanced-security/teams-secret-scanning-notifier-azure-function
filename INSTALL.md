@@ -2,18 +2,38 @@
 
 To get this Azure Function working, you need to:
 
-1. create a GitHub App
-2. create an Azure Function app, and deploy this Azure Function to it
-3. configure the Azure Function with the GitHub App's private key, webhook secret, and the GitHub App's ID
-4. configure the Azure Function with the Teams webhook URL
-5. configure the GitHub App with the Azure Function's URL as the webhook
-6. install the GitHub App on the organization and set it to be active on the whole organization or the repositories you want
+1. Get a Teams incoming webhook URL
+2. create a GitHub App
+3. create an Azure Function app, and deploy this Azure Function to it
+4. configure the Azure Function with the GitHub App's private key, webhook secret, and the GitHub App's ID
+5. configure the Azure Function with the Teams webhook URL
+6. configure the GitHub App with the Azure Function's URL as the webhook
+7. install the GitHub App on the organization and set it to be active on the whole organization or the repositories you want
 
 > [!NOTE]
 > When working with the Azure CLI, remember to use `az login` to log in to Azure, and `az logout` first if you are having problems.
 
 > [!NOTE]
 > To use the Bash (use WSL on Windows for Bash) scripts in the `scripts` directory, set your Azure settings in a `azure.env` file that they pick up from the same directory. You may need to change settings if you want to vary the region the Function is used in, or change its name to allow more than one to coexist in the same subscription.
+
+> [!WARNING]
+> Don't get confused between the Teams webhook and the Azure Function webhook.
+>
+> The Teams webhook is configured in the Azure Function, and the Azure Function webhook is configured in the GitHub App.
+
+## Getting a Teams incoming webhook URL
+
+You need to create a Teams incoming webhook URL for the channel you want to create alert messages in.
+
+### Use the Teams UI to create a new incoming webhook
+
+1. Find the channel you want to create the webhook in
+2. In the channel listing, click on the ellipsis ("...") next to the channel name
+3. Click on "Manage channel" in the menu
+4. Click on "Edit" under the "Connectors" section
+5. Click on "Add" next to "Incoming Webhook"
+6. Provide a name for the webhook, customize it with an image if you like, and click on "Create"
+7. Copy the URL that is generated, and save it somewhere safe - you will need it later to configure the Azure Function
 
 ## Creating a GitHub app
 
@@ -41,7 +61,7 @@ You will need a name, a description, a homepage URL (which can just be `https://
 - uncheck the "Active" checkbox for the webhook, since we have not yet created the Azure Function
 - use a secure secret for the webhook secret, since this authenticates that this GitHub App is making requests to your Functions App
   - ⚠️ save the webhook secret somewhere safe, and generate it securely. It's best to do this using a password manager or key vault
-- give the GitHub App read and write access to Actions under the repository permissions
+- give the GitHub App read access to Secret scanning alerts under the repository permissions
 - leave the option selected to "Enable SSL verification"
 - click on the "Create GitHub App" button
 
@@ -51,12 +71,6 @@ Once it is created, you will need to download the private key.
   - ⚠️ save the private key somewhere safe - _this is the only time you get to download it_, and you will need it later
 
 [The full GitHub docs](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) can help you if you get stuck.
-
-### Use the GitHub API to create a new GitHub App
-
-> **TODO**
-
-This is possible [using a manifest](https://docs.github.com/en/enterprise-cloud@latest/apps/sharing-github-apps/registering-a-github-app-from-a-manifest), but has not yet been implemented here.
 
 ## Deploying the Azure Function
 
@@ -114,6 +128,8 @@ The private key should be a single line, removing the whitespace in the `.pem` f
 ```text
 -----BEGIN RSA PRIVATE KEY----- MIAAA...AAA== -----END RSA PRIVATE KEY-----
 ```
+
+You can use the `pem-to-one-liner.sh` script to do this, which just uses `tr` to remove the line breaks.
 
 It is also possible to set these directly in the Azure Portal, but you may prefer to configure them in code.
 
@@ -192,6 +208,8 @@ There are a couple of ways to deploy the function to the Function App with the V
 
 You need to find the URL of the Function to set up the GitHub App's webhook.
 
+This is returned when you deploy the function to the Function App using the `deploy.sh` script. If you used a different method, you may need to find it manually.
+
 You can use the Azure Portal, the Azure CLI, or the VSCode Azure Functions extension to do this.
 
 If you can't find the Function under the Functions App, you may need to click on the "Refresh" button in the top menu. If that doesn't work, there may be an error in the Function's code or settings. Check that you can debug the Function locally, to see if there are any mistakes in the configuration, especially the `PRIVATE_KEY` setting.
@@ -218,7 +236,7 @@ Open up the Function App, and expand the Functions node. Right-click on the Func
 
 Fill in the details you now know from the Function App and installed Function into the GitHub App's settings.
 
-- select the `secret_scanning_alert` event under "Permissions & events"
+- select the `secret_scanning_alert` event under "Permissions & events" and click "Save" at the bottom of the page
   - ⚠️ carefully think about the security implications of giving the Functions App access to these events
 - set the webhook URL to the URL of the Function
 - set the webhook to Active by checking the box
@@ -232,11 +250,3 @@ You need to install the GitHub App on an organization or repository.
 - navigate to the GitHub App you created earlier, and click on the "Install App" button
 - choose which organization to install it on
 - choose whether to install it for selected repositories, or for the whole organization
-
-### Use the GitHub API to install the GitHub App
-
-> **TODO**
-
-This has not been implemented yet.
-
-This is left until the creation of the app using a manifest has been implemented.
