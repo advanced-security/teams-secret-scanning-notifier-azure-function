@@ -13,7 +13,7 @@
   "dependencies": {
     "@azure/functions": "^4.0.0",
     "@probot/adapter-azure-functions": "github:probot/adapter-azure-functions#4a0f805a7916c07e6dd9d7f1c29e1e75ea72d190",
-    "axios": "^1.8.2",
+    "axios": "^1.12.0",
     "node-fetch": "^3.3.2",
     "yaml": "^2.3.4"
   },
