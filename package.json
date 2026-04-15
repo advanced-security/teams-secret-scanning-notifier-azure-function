@@ -11,11 +11,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@azure/functions": "^4.0.0",
+    "@azure/functions": "^4.12.0",
     "@probot/adapter-azure-functions": "github:probot/adapter-azure-functions#4a0f805a7916c07e6dd9d7f1c29e1e75ea72d190",
-    "axios": "^1.12.0",
+    "axios": "^1.15.0",
     "node-fetch": "^3.3.2",
-    "yaml": "^2.3.4"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",
